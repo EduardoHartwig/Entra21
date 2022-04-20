@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Primeiro_Console_Application": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "environmentVariables": {},
+      "distributionName": ""
+    }
+  }
+}
