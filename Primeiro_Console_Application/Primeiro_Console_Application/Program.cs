@@ -9,12 +9,12 @@ namespace Primeiro_Console_Application
 
             String nome = "", sobrenome = "", operação;
             int idade;
-            double altura, peso, imc, digitoa, digitob, resultado;
+            double altura, peso, imc, digitoa, digitob, resultado, notaa, notab, notac, maior, menor, auxa, auxb, auxc, auxd;
             int opcaoa = 010101;
-            
 
 
-           
+
+
             do
             {
 
@@ -26,6 +26,7 @@ namespace Primeiro_Console_Application
                 Console.WriteLine("1 - Verificação de idade.");
                 Console.WriteLine("2 - Calcular IMC.");
                 Console.WriteLine("3 - Calculadora");
+                Console.WriteLine("4 - Média notas.");
                 Console.WriteLine("0 - Sair");
                 opcaoa = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("");
@@ -55,13 +56,13 @@ namespace Primeiro_Console_Application
                         if (idade < 18)
                         {
                             Console.WriteLine("");
-                            Console.WriteLine(nome + "" + sobrenome + " é menor de idade.");
+                            Console.WriteLine($"{nome} {sobrenome} é menor de idade.");
                             Console.WriteLine("");
                         }
                         else
                         {
                             Console.WriteLine("");
-                            Console.WriteLine(nome + "" + sobrenome + " é maior de idade.");
+                            Console.WriteLine($"{nome} {sobrenome} é maior de idade.");
                             Console.WriteLine("");
                         }
 
@@ -80,8 +81,38 @@ namespace Primeiro_Console_Application
 
                         imc = (peso / (altura * altura));
 
+                        if (imc < 16)
+                        {
+                            Console.WriteLine("Situação: Subpeso Severo");
+                        }
+                        else if (imc < 19.9)
+                        {
+                            Console.WriteLine("Situação: Subpeso");
+                        }
+                        else if (imc < 24.9)
+                        {
+                            Console.WriteLine("Situação: Normal");
+
+                        }
+                        else if (imc < 29.9)
+                        {
+                            Console.WriteLine("Situação: Sobrepeso");
+
+                        }
+                        else if (imc < 39.9)
+                        {
+                            Console.WriteLine("Situação: Obesidade");
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Situação: Obeisade Mórbida");
+
+                        }
+
+
                         Console.WriteLine("");
-                        Console.WriteLine("Seu IMC é de " + Math.Round(imc, 2));
+                        Console.WriteLine($"Seu IMC é de {imc}");
                         Console.WriteLine("");
 
                         break;
@@ -108,7 +139,7 @@ namespace Primeiro_Console_Application
                             resultado = digitoa + digitob;
 
                             Console.WriteLine("");
-                            Console.WriteLine("A soma de " + digitoa + " e de " + digitob + " é igual a: " + Math.Round(resultado, 5));
+                            Console.WriteLine($"A soma de  {digitoa}  e de  {digitob}  é igual a:  {resultado}");
                             Console.WriteLine("");
 
                         }
@@ -117,7 +148,7 @@ namespace Primeiro_Console_Application
                             resultado = digitoa - digitob;
 
                             Console.WriteLine("");
-                            Console.WriteLine("A subtração de " + digitoa + " e de " + digitob + " é igual a: " + resultado);
+                            Console.WriteLine($"A subtração de  {digitoa}  e de  {digitob}  é igual a:  {resultado}");
 
                             Console.WriteLine("");
                         }
@@ -126,7 +157,7 @@ namespace Primeiro_Console_Application
                             resultado = digitoa * digitob;
 
                             Console.WriteLine("");
-                            Console.WriteLine("A multiplicação de " + digitoa + " e de " + digitob + " é igual a: " + resultado);
+                            Console.WriteLine($"A multiplicação de  {digitoa}  e de  {digitob}  é igual a: {resultado}");
                             Console.WriteLine("");
 
                         }
@@ -135,7 +166,7 @@ namespace Primeiro_Console_Application
                             resultado = digitoa / digitob;
 
                             Console.WriteLine("");
-                            Console.WriteLine("A divisão de " + digitoa + " e de " + digitob + " é igual a: " + resultado);
+                            Console.WriteLine($"A divisão de {digitoa} e de {digitob} é igual a:  {resultado}");
                             Console.WriteLine("");
 
                         }
@@ -146,6 +177,32 @@ namespace Primeiro_Console_Application
                             Console.WriteLine("");
 
                         }
+
+                        break;
+
+                    case 4:
+
+                        Console.WriteLine("Digite as 3 notas de um aluno: ");
+                        notaa = Convert.ToInt32(Console.ReadLine());
+                        notab = Convert.ToInt32(Console.ReadLine());
+                        notac = Convert.ToInt32(Console.ReadLine());
+
+
+                        auxa = Math.Max(notaa, notab);
+                        auxb = Math.Max(notab, notac);
+                        maior = Math.Max(auxa, auxb);
+
+                        auxc = Math.Min(notaa, notab);
+                        auxd = Math.Min(notab, notac);
+                        menor = Math.Min(auxc, auxd);
+
+                        resultado = (notaa + notab + notac) / 3;
+
+
+                        Console.WriteLine($"A maior nota é: {maior}");
+                        Console.WriteLine($"A menor nota é: {menor}");
+                        Console.WriteLine($"A média é: {resultado}");
+
 
                         break;
 
