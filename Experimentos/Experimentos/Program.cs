@@ -6,30 +6,43 @@ namespace Experimentos
     {
         static void Main(string[] args)
         {
-            int numa = 0, numb = 0, numc = 0, maior = 0, menor = 0, auxa = 0, auxb = 0;
-            
+
+            double Xa, Ya, Xb, Yb, D;
 
 
-            Console.WriteLine("Escreva 3 digitos");
-            numa = Convert.ToInt32(Console.ReadLine());
-            numb = Convert.ToInt32(Console.ReadLine());
-            numc = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Digite a primeira Coordenada: ");
+            Console.Write("Xa: ");
+            Xa = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Ya: ");
+            Ya = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine(" ");
+
+            Console.WriteLine("Digite a segunda Coordenada: ");
+            Console.Write("Xb: ");
+            Xb = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Yb: ");
+            Yb = Convert.ToDouble(Console.ReadLine());
+
+
+            Console.WriteLine(" ");
 
 
 
-            auxa = Math.Max(numa, numb);
-            auxb = Math.Max(numb, numc);
+            //D = Math.Sqrt(((Xa - Xb) * (Xa - Xb)) + ((Ya - Yb) * (Ya - Yb)));
+            D = Math.Sqrt(Math.Pow((Xa - Xb), 2) + Math.Pow((Ya - Yb), 2));
 
-            maior = Math.Max(auxa, auxb);
-
-
-            Console.WriteLine("maior nota = " + maior);
+            Console.WriteLine($"A Distância das 2 coordenadas é: {D}");
 
 
-            
-            
 
-            
+
+
+
+
+
+
+
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Primeiro_Console_Application
                 Console.WriteLine("2 - Calcular IMC.");
                 Console.WriteLine("3 - Calculadora");
                 Console.WriteLine("4 - Média notas.");
+                Console.WriteLine("5 - Calcular desconto + porcentagem.");
+                Console.WriteLine("6 - Calcular distância coordenadas.");
                 Console.WriteLine("0 - Sair");
                 opcaoa = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("");
@@ -202,6 +204,80 @@ namespace Primeiro_Console_Application
                         Console.WriteLine($"A maior nota é: {maior}");
                         Console.WriteLine($"A menor nota é: {menor}");
                         Console.WriteLine($"A média é: {resultado}");
+
+
+                        break;
+
+                    case 5:
+
+
+                        double desconto = 0, valorBase = 0, percentualDesconto = 10, percentualImposto = 5, valorImposto = 0, valorFinal = 0;
+
+
+                        Console.WriteLine("Informe o valor do Produto: ");
+                        valorBase = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine("");
+                        Console.WriteLine("Escreva quantos % deseja dar de desconto: ");
+                        percentualDesconto = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine("");
+
+
+                        if (valorBase <= 100)
+                        {
+                            percentualImposto = 5;
+
+                        }
+                        else
+                            if (valorBase <= 300)
+                        {
+                            percentualImposto = 15;
+                        }
+                        else
+                        {
+                            percentualImposto = 25;
+                        }
+
+                        desconto = (percentualDesconto / 100) * valorBase;
+
+                        valorImposto = (percentualImposto / 100) * valorBase;
+
+                        valorFinal = (valorBase + valorImposto) - desconto;
+
+                        Console.WriteLine($"Valor do desconto é: R${desconto}");
+                        Console.WriteLine($"Valor do imposto é: R${valorImposto}");
+                        Console.WriteLine($"Valor Final do Produto: R${valorFinal}");
+
+                        break;
+
+
+
+                    case 6:
+
+                        double Xa, Ya, Xb, Yb, D;
+
+
+                        Console.WriteLine("Digite a primeira Coordenada: ");
+                        Console.Write("Xa: ");
+                        Xa = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Ya: ");
+                        Ya = Convert.ToDouble(Console.ReadLine());
+
+                        Console.WriteLine(" ");
+
+                        Console.WriteLine("Digite a segunda Coordenada: ");
+                        Console.Write("Xb: ");
+                        Xb = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Yb: ");
+                        Yb = Convert.ToDouble(Console.ReadLine());
+
+
+                        Console.WriteLine(" ");
+
+
+
+                        D = Math.Sqrt(Math.Pow((Xa - Xb), 2) + Math.Pow((Ya - Yb), 2));
+
+                        Console.WriteLine($"A Distância das 2 coordenadas é: {D}");
 
 
                         break;
