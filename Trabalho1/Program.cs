@@ -136,15 +136,15 @@ namespace Trabalho1
                             if (delta == 0)
                             {
 
-                                x1 = (-B + Math.Sqrt(delta));
+                                x1 = (-B + Math.Sqrt(delta)) / 2 * A;
 
                                 Console.WriteLine($"X' = {x1}");
 
                             }
                             else
                             {
-                                x1 = (-B + Math.Sqrt(delta));
-                                x2 = (-B - Math.Sqrt(delta));
+                                x1 = (-B + Math.Sqrt(delta)) / 2 * A;
+                                x2 = (-B - Math.Sqrt(delta)) / 2 * A;
 
 
                                 Console.WriteLine($"X' = {x1}");
