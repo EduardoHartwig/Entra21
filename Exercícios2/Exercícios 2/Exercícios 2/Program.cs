@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace Exercícios_2
+namespace Exercícios2
 {
     class Program
     {
+
         static void Main(string[] args)
         {
 
@@ -15,20 +16,20 @@ namespace Exercícios_2
 
             do
             {
-
                 Console.WriteLine(" ");
                 Console.WriteLine("Qual Exercício deseja ver ? ");
                 Console.WriteLine(" ");
                 Console.WriteLine("1 - Lista de Nomes.");
                 Console.WriteLine("2 - Calcula da média de números indefinidos.");
                 Console.WriteLine("3 - Média de 10 notas - Max/Min.");
+                Console.WriteLine("4 - Verificação de números repetidos.");
+                Console.WriteLine("5 - Intercalar texto.");
+                Console.WriteLine("6 - Multiplicação de vetores.");
                 Console.WriteLine(" ");
                 Console.WriteLine("0 - Sair.");
                 Console.WriteLine(" ");
                 Console.Write("-> ");
                 imput = Convert.ToInt32(Console.ReadLine());
-
-
 
 
                 switch (imput)
@@ -38,10 +39,7 @@ namespace Exercícios_2
 
                         imput = 010101;
 
-
-
                         break;
-
 
                     case 1:
 
@@ -70,10 +68,7 @@ namespace Exercícios_2
                         }
                         break;
 
-
-
                     case 2:
-
 
                         Console.WriteLine(" ");
                         Console.WriteLine("Escolha quantas números serão calculados: ");
@@ -82,8 +77,6 @@ namespace Exercícios_2
 
                         int[] numero = new int[N];
                         int resultado = 0;
-
-
 
                         if (N > 0)
                         {
@@ -111,9 +104,6 @@ namespace Exercícios_2
                         }
                         break;
 
-
-
-
                     case 3:
 
                         int[] notas = new int[10];
@@ -139,120 +129,129 @@ namespace Exercícios_2
                         min = Math.Min(notas[0], notas[9]);
                         max = Math.Max(notas[0], notas[9]);
 
-
-
                         Console.Write(" ");
                         Console.WriteLine($"A média das notas digitadas é: {resultado}");
                         Console.WriteLine($"A maior nota digitada é: {max}");
                         Console.WriteLine($"A menor nota digitada é: {min}");
                         break;
 
-
-
                     case 4:
 
+                        Console.WriteLine(" ");
+                        Console.WriteLine("Escolha quantas entradas serâo: ");
+                        Console.Write("-> ");
+                        N = Convert.ToInt32(Console.ReadLine());
 
+                        int[] vet = new int[N];
+                        int[] vetcopia = new int[N];
+                        int[] vetcont = new int[N];
 
-
-
-                        //int[] entrada = new int[N];
-                        do
+                        for (int i = 0; i < vet.Length; i++)
                         {
                             Console.WriteLine(" ");
-                            Console.WriteLine("Escolha quantas entradas serâo: ");
+                            Console.WriteLine("Digite um valor inteiro: ");
                             Console.Write("-> ");
-                            N = Convert.ToInt32(Console.ReadLine());
+                            vet[i] = Convert.ToInt32(Console.ReadLine());
+                            vetcopia[i] = vet[i];
+                            vetcont[i]++;
+                        }
 
-                            int M = N;
-                            int[,] cont = new int[N, M];
-                            int[] entrada = new int[N];
-
-                            for (int i = 0; i < entrada.Length; i++)
+                        for (int i = 0; i < vet.Length; i++)
+                        {
+                            for (int j = 0; j < vet.Length; j++)
                             {
-                                Console.WriteLine(" ");
-                                Console.WriteLine("Digite um valor inteiro: ");
-                                Console.Write("-> ");
-                                entrada[i] = Convert.ToInt32(Console.ReadLine());
-                                for (int j = 0; j < entrada.Length; j++)
+                                if (i != j)
                                 {
-                                    
-                                    if (entrada[i] == cont[0, 1]) 
+                                    if (vet[i] == vetcopia[j])
                                     {
-                                        cont[0, 1] = (cont[0, 1]++); 
-
-                                    }
-                                    else
-                                        if(entrada[i] == cont[1,0] )
-                                    {
-                                        cont[1, 1] = (cont[1, 1]++);
-
-                                    }
-                                    else
-                                        if(entrada[i] == cont[2,0])
-                                    {
-                                        cont[2, 1] = (cont[2, 1]++);
-                                    }
-                                    else
-                                        if (entrada[i] == cont[3, 0])
-                                    {
-                                        cont[3, 1] = (cont[3, 1]++);
-                                    }
-                                    else
-                                        if (entrada[i] == cont[4, 0])
-                                    {
-                                        cont[4, 1] = (cont[4, 1]++);
-                                    }
-                                    else
-                                        if (entrada[i] == cont[5, 0])
-                                    {
-                                        cont[5, 1] = (cont[5, 1]++);
-                                    }
-                                    else
-                                        if (entrada[i] == cont[6, 0])
-                                    {
-                                        cont[6, 1] = (cont[6, 1]++);
+                                        vetcont[i]++;
                                     }
                                 }
-
-
                             }
+                        }
 
-
-
-
-
-
-                        } while (N >= 0);
-
-
-
-
-
+                        for (int i = 0; i < vet.Length; i++)
+                        {
+                            Console.WriteLine(" ");
+                            Console.WriteLine($"O elemento {vet[i]}, que está na posição {i} aparece {vetcont[i]} vezes.");
+                        }
                         break;
 
 
+
+                    case 5:
+
+                        string[] texto = new string[10];
+
+
+                        for (int i = 0; i < texto.Length; i++)
+                        {
+                            Console.WriteLine(" ");
+                            Console.WriteLine("Digite um texto: ");
+                            Console.Write("-> ");
+                            texto[i] = Console.ReadLine();
+                        }
+                        Console.WriteLine(" ");
+
+                        for (int i = 0; i < texto.Length; i++)
+                        {
+                            Console.Write($" {texto[i]} ");
+
+                            if (i != texto.Length - 1)
+                            {
+                                Console.Write(" -OU- ");
+                            }
+
+                        }
+
+                        break;
+
+                    case 6:
+
+                        double[] veta = new double[5];
+                        double[] vetb = new double[5];
+                        double[] vetresultado = new double[5];
+
+
+
+                        Console.WriteLine("Digite 5 Valores para o Vetor A: ");
+                        for (int i = 0; i < veta.Length; i++)
+                        {
+                            Console.WriteLine(" ");
+                            Console.WriteLine("Digite um um valor: ");
+                            Console.Write("-> ");
+                            veta[i] = Convert.ToDouble(Console.ReadLine());
+
+                        }
+
+                        Console.WriteLine("Digite 5 Valores para o Vetor B: ");
+                        for (int i = 0; i < vetb.Length; i++)
+                        {
+                            Console.WriteLine(" ");
+                            Console.WriteLine("Digite um um valor: ");
+                            Console.Write("-> ");
+                            vetb[i] = Convert.ToDouble(Console.ReadLine());
+                        }
+
+
+                        for (int i = 0; i < veta.Length; i++)
+                        {
+                            vetresultado[i] = veta[i] * vetb[i];
+                            Console.WriteLine(" ");
+                            Console.WriteLine($"O resultado de {veta[i]} vezes {vetb[i]} é {vetresultado[i]}.");
+                        }
+
+                        break;
 
                     default:
 
-
+                        Console.WriteLine(" ");
+                        Console.WriteLine("Opção inválida. Tente Novamente.");
 
                         break;
 
-
-
-
-
                 }
-
-
-
-
-
-
-
             } while (imput != 010101);
-
-
         }
     }
 }
