@@ -123,12 +123,25 @@ namespace Exercícios2
                         {
                             resultado = resultado + notas[i];
                         }
-
                         resultado = resultado / notas.Length;
-                        Array.Sort(notas);
-                        min = Math.Min(notas[0], notas[9]);
-                        max = Math.Max(notas[0], notas[9]);
 
+                        int aux = notas[0];
+                        for (int i = 0; i < notas.Length; i++)
+                        {
+                            for (int j = i + 1; j < notas.Length; j++)
+                            {
+                                if (notas[i] > notas[j])
+                                {
+                                    aux = notas[i];
+
+                                    notas[i] = notas[j];
+
+                                    notas[j] = aux;
+                                }
+                            }
+                        }
+                        min = notas[0];
+                        max = notas[9];
                         Console.Write(" ");
                         Console.WriteLine($"A média das notas digitadas é: {resultado}");
                         Console.WriteLine($"A maior nota digitada é: {max}");
