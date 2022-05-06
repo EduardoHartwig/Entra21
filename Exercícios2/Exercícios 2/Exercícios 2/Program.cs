@@ -259,399 +259,187 @@ namespace Exercícios2
 
                     case 7:
 
-                        int imputb = 0;
-                        int imputc = 0;
-                        int imputd = 0;
+
+                        int imputb = -1;
+                        int imputc = -1;
+                        int imputd = -1;
+                        int posição = -1;
+                        int posiçãob = -1;
 
                         do
                         {
-
                             string[] Nome = new string[5] { "Eduardo", "Mateus", "Predu", "Lucas", "Jonathan" };
-                            string imputNome;
                             int[] ID = new int[5] { 7589, 7562, 3432, 6666, 8524 };
-                            int imputID;
                             double[] Saldo = new double[5] { 1500.50, 8400.75, 3245.99, 7243.15, 2300.20 };
+
+                            string imputNome = "";
+                            string imputNomeb = "";
+                            int imputID = 0;
+                            int imputIDb = 0;
                             double imputSaldo;
 
-                            Console.WriteLine("\nQual Operação Deseja Realizar?");
-                            Console.WriteLine("\n1 - Saque.");
-                            Console.WriteLine("2 - Depositar.");
-                            Console.WriteLine("3 - Transferência.");
-                            Console.WriteLine("4 - Consultar Saldo.");
-                            Console.WriteLine("\n0 - Sair.");
-                            Console.Write("-> ");
-                            imputb = Convert.ToInt32(Console.ReadLine());
+
+                            string imputVerificador;
+                            string imputVerificadorb;
+
+                            Console.WriteLine("\nInforme seu Nome ou ID: ");
+                            Console.Write("->");
+                            imputVerificador = Console.ReadLine();
 
 
+                            imputc = (int.TryParse(imputVerificador, out imputID)) ? 1 : 2;
 
-                            switch (imputb)
+
+                            for (int i = 0; i < Nome.Length; i++)
                             {
-
-                                case 0:
+                                if (imputc == 1)
+                                {
+                                    if (imputID == ID[i])
+                                    {
+                                        posição = i;
+                                    }
+                                }
+                                else if (imputc == 2)
+                                {
+                                    imputNome = imputVerificador;
+                                    if (imputNome == Nome[i])
+                                    {
+                                        posição = i;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\nConta Inexistente.");
                                     imputb = 010101;
-                                    break;
+                                }
+                            }
 
-                                case 1:
 
-                                    Console.WriteLine("\nSaque: ");
-                                    Console.WriteLine("\nInforme seu Nome ou ID");
-                                    Console.WriteLine("\n1 - Nome");
-                                    Console.WriteLine("2 - ID");
-                                    Console.WriteLine("\n0 - Cancelar Operação.");
+                            while (imputc == 1 || imputc == 2)
+                            {
+                                do
+                                {
+                                    Console.WriteLine("\nQual Operação Deseja Realizar?");
+                                    Console.WriteLine("\n1 - Saque.");
+                                    Console.WriteLine("2 - Depositar.");
+                                    Console.WriteLine("3 - Transferência.");
+                                    Console.WriteLine("4 - Consultar Saldo.");
+                                    Console.WriteLine("\n0 - Sair.");
                                     Console.Write("-> ");
-                                    imputc = Convert.ToInt32(Console.ReadLine());
-
-                                    switch (imputc)
+                                    imputb = Convert.ToInt32(Console.ReadLine());
+                                    if (imputb == 0)
                                     {
-                                        case 0:
-                                            imputb = 010101;
-                                            break;
-
-                                        case 1:
-
-                                            Console.WriteLine("\nInforme seu Nome: ");
-                                            Console.Write("-> ");
-                                            imputNome = Console.ReadLine();
-
-                                            for (int i = 0; i < Nome.Length; i++)
-                                            {
-                                                if (imputNome == Nome[i])
-                                                {
-                                                    Console.WriteLine($"\nBem Vindo {Nome[i]}, Quanto Deseja Sacar?");
-                                                    Console.Write("-> ");
-                                                    imputSaldo = Convert.ToDouble(Console.ReadLine());
-
-                                                    if (imputSaldo < Saldo[i])
-                                                    {
-                                                        Console.WriteLine("\nSALDO INSUFICIENTE");
-                                                    }
-                                                    else
-                                                    {
-                                                        Saldo[i] = Saldo[i] - imputSaldo;
-                                                        Console.WriteLine($"\nValor Sacado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[i]}");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("\nCONTA INEXISTENTE");
-                                                }
-                                            }
-                                            break;
-
-                                        case 2:
-
-                                            Console.WriteLine("\nInforme seu ID: ");
-                                            Console.Write("-> ");
-                                            imputID = Convert.ToInt32(Console.ReadLine());
-
-                                            for (int i = 0; i < ID.Length; i++)
-                                            {
-                                                if (imputID == ID[i])
-                                                {
-                                                    Console.WriteLine($"\nBem Vindo {Nome[i]}, Quanto Deseja Sacar?");
-                                                    Console.Write("-> ");
-                                                    imputSaldo = Convert.ToDouble(Console.ReadLine());
-
-                                                    if (imputSaldo < Saldo[i])
-                                                    {
-                                                        Console.WriteLine("\nSALDO INSUFICIENTE");
-                                                    }
-                                                    else
-                                                    {
-                                                        Saldo[i] = Saldo[i] - imputSaldo;
-                                                        Console.WriteLine($"\nValor Sacado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[i]}");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("\nCONTA INEXISTENTE");
-                                                }
-                                            }
-                                            break;
-                                        default:
-                                            Console.WriteLine("\nOPÇÃO INVÁLIDA");
-                                            break;
+                                        imputb = 010101;
+                                        imputc = 0;
                                     }
-                                    break;
-
-                                case 2:
-
-                                    Console.WriteLine("\nDepósito: ");
-                                    Console.WriteLine("\nInforme seu Nome ou ID");
-                                    Console.WriteLine("\n1 - Nome");
-                                    Console.WriteLine("2 - ID");
-                                    Console.WriteLine("\n0 - Cancelar Operação.");
-                                    Console.Write("-> ");
-                                    imputc = Convert.ToInt32(Console.ReadLine());
-
-                                    switch (imputc)
+                                    else
                                     {
-                                        case 0:
-                                            imputb = 010101;
-                                            break;
+                                        switch (imputb)
+                                        {
+                                            case 1:
+                                                Console.WriteLine($"\nBem vindo {Nome[posição]}, Quanto Deseja Sacar ?");
+                                                Console.Write("-> ");
+                                                imputSaldo = Convert.ToDouble(Console.ReadLine());
 
-
-                                        case 1:
-
-                                            Console.WriteLine("\nInforme seu Nome: ");
-                                            Console.Write("-> ");
-                                            imputNome = Console.ReadLine();
-
-                                            for (int i = 0; i < Nome.Length; i++)
-                                            {
-                                                if (imputNome == Nome[i])
+                                                if (imputSaldo > Saldo[posição])
                                                 {
-                                                    Console.WriteLine($"\nBem Vindo {Nome[i]}, Quanto Deseja Depositar na sua Conta?");
-                                                    Console.Write("-> ");
-                                                    imputSaldo = Convert.ToDouble(Console.ReadLine());
-
-                                                    if (imputSaldo <= 0)
-                                                    {
-                                                        Console.WriteLine("\n Valor Inválido ");
-                                                    }
-                                                    else
-                                                    {
-                                                        Saldo[i] = Saldo[i] + imputSaldo;
-                                                        Console.WriteLine($"\nValor Depositado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[i]}.");
-                                                    }
-
+                                                    Console.WriteLine("\nSALDO INSUFICIENTE");
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("\nCONTA INEXISTENTE");
+                                                    Saldo[posição] = Saldo[posição] - imputSaldo;
+                                                    Console.WriteLine($"\nValor Sacado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[posição]}");
                                                 }
-                                            }
+                                                break;
 
-                                            break;
+                                            case 2:
+                                                Console.WriteLine($"\nBem Vindo {Nome[posição]}, Quanto Deseja Depositar na sua Conta?");
+                                                Console.Write("-> ");
+                                                imputSaldo = Convert.ToDouble(Console.ReadLine());
 
-                                        case 2:
-
-
-                                            Console.WriteLine("\nInforme seu ID: ");
-                                            Console.Write("-> ");
-                                            imputID = Convert.ToInt32(Console.ReadLine());
-
-                                            for (int i = 0; i < ID.Length; i++)
-                                            {
-                                                if (imputID == ID[i])
+                                                if (imputSaldo <= 0)
                                                 {
-
-                                                    Console.WriteLine($"\nBem Vindo {Nome[i]}, Quanto Deseja Depositar na sua Conta?");
-                                                    Console.Write("-> ");
-                                                    imputSaldo = Convert.ToDouble(Console.ReadLine());
-
-                                                    if (imputSaldo <= 0)
-                                                    {
-                                                        Console.WriteLine("\n Valor Inválido ");
-                                                    }
-                                                    else
-                                                    {
-                                                        Saldo[i] = Saldo[i] + imputSaldo;
-                                                        Console.WriteLine($"\nValor Depositado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[i]}.");
-                                                    }
-
+                                                    Console.WriteLine("\n Valor Inválido ");
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("\nCONTA INEXISTENTE");
+                                                    Saldo[posição] = Saldo[posição] + imputSaldo;
+                                                    Console.WriteLine($"\nValor Depositado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[posição]}.");
                                                 }
-                                            }
-                                            break;
+                                                break;
 
-                                        default:
-                                            Console.WriteLine("\n OPÇÃO INVÁLIDA ");
-                                            break;
-                                    }
-                                    break;
+                                            case 3:
+                                                Console.WriteLine($"\nBem Vindo {Nome[posição]}, Para Quem Deseja Transferir?");
+                                                Console.Write("-> ");
+                                                imputVerificadorb = Console.ReadLine();
 
-                                case 3:
 
-                                    Console.WriteLine("\nTranferência: ");
-                                    Console.WriteLine("\nInforme seu Nome ou ID");
-                                    Console.WriteLine("\n1 - Nome");
-                                    Console.WriteLine("2 - ID");
-                                    Console.WriteLine("\n0 - Cancelar Operação.");
-                                    Console.Write("-> ");
-                                    imputc = Convert.ToInt32(Console.ReadLine());
+                                                imputd = (int.TryParse(imputVerificadorb, out imputIDb)) ? 1 : 2;
 
-                                    switch (imputc)
-                                    {
-                                        case 0:
-                                            imputb = 010101;
-                                            break;
-
-                                        case 1:
-
-                                            Console.WriteLine("\nInforme seu Nome: ");
-                                            Console.Write("-> ");
-                                            imputNome = Console.ReadLine();
-
-                                            for (int i = 0; i < Nome.Length; i++)
-                                            {
-                                                if (imputNome == Nome[i])
+                                                for (int i = 0; i < Nome.Length; i++)
                                                 {
-                                                    Console.WriteLine($"\nBem Vindo {Nome[i]}, Para Qual Conta Deseja Realizar a Transferência: ");
-                                                    Console.WriteLine("\n1 - Nome");
-                                                    Console.WriteLine("2 - ID");
-                                                    Console.Write("-> ");
-                                                    imputd = Convert.ToInt32(Console.ReadLine());
-
-                                                    switch (imputd)
+                                                    if (imputd == 1)
                                                     {
-                                                        case 1:
+                                                        if (imputIDb == ID[i])
+                                                        {
+                                                            posiçãob = i;
+                                                        }
+                                                    }
+                                                    else if (imputd == 2)
+                                                    {
+                                                        imputNomeb = imputVerificadorb;
+                                                        if (imputNomeb == Nome[i])
+                                                        {
+                                                            posiçãob = i;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("\nConta Inexistente.");
+                                                        imputb = 010101;
+                                                    }
+                                                }
 
-                                                            Console.WriteLine("\nPara Quem Deseja Transferir: ");
-                                                            Console.WriteLine("Informe o Nome: ");
-                                                            Console.Write("-> ");
-                                                            imputNome = Console.ReadLine();
+                                                if (posição != posiçãob)
+                                                {
+                                                    Console.WriteLine($"\nA conta a qual deseja Transferir é sua, {Nome[posição]}");
+                                                }
+                                                else
+                                                {
+                                                    while (imputd == 1 || imputd == 2)
+                                                    {
+                                                        Console.WriteLine($"\n{Nome[posição]}, Quanto Deseja Transferir para {Nome[posiçãob]} ?");
+                                                        Console.Write("-> ");
+                                                        imputSaldo = Convert.ToDouble(Console.ReadLine());
 
-                                                            for (int j = 0; j < Nome.Length; j++)
+                                                        if (imputSaldo < 0)
+                                                        {
+                                                            Console.WriteLine("\n Valor Inválido ");
+                                                        }
+                                                        else
+                                                        {
+                                                            if (imputSaldo < Saldo[posição])
                                                             {
-
-                                                                if (Nome[i] != Nome[j])
-                                                                {
-
-                                                                    if (imputNome == Nome[j])
-                                                                    {
-                                                                        Console.WriteLine($"\n{Nome[i]}, Quanto Deseja Transferir para {Nome[j]}");
-                                                                        Console.Write("-> ");
-                                                                        imputSaldo = Convert.ToDouble(Console.ReadLine());
-
-                                                                        if (imputSaldo < Saldo[i])
-                                                                        {
-                                                                            Console.WriteLine("\nSALDO INSUFICIENTE");
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            Saldo[i] = Saldo[i] - imputSaldo;
-                                                                            Console.WriteLine($"\nValor Trasnferido para {Nome[j]}: R${imputSaldo} || Saldo Atual em conta: R${Saldo[i]}");
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        Console.WriteLine("\nCONTA INEXISTENTE");
-                                                                    }
-
-                                                                }
-                                                                else if (Nome[i] == Nome[j])
-                                                                {
-                                                                    Console.WriteLine($"\nA conta a qual deseja Transferir é sua, {Nome[i]}");
-                                                                }
+                                                                Console.WriteLine("\n Saldo Insuficiente ");
                                                             }
-                                                            break;
-
-
-                                                        case 2:
-                                                            Console.WriteLine("\nPara Quem Deseja Transferir: ");
-                                                            Console.WriteLine("Informe o ID: ");
-                                                            Console.Write("-> ");
-                                                            imputID = Convert.ToInt32(Console.ReadLine());
-
-                                                            for (int j = 0; j < ID.Length; j++)
+                                                            else
                                                             {
-
-                                                                if (ID[i] != ID[j])
-                                                                {
-
-                                                                    if (imputID == ID[j])
-                                                                    {
-                                                                        Console.WriteLine($"\n{Nome[i]}, Quanto Deseja Transferir para {Nome[j]}");
-                                                                        Console.Write("-> ");
-                                                                        imputSaldo = Convert.ToDouble(Console.ReadLine());
-
-                                                                        if (imputSaldo < Saldo[i])
-                                                                        {
-                                                                            Console.WriteLine("\nSALDO INSUFICIENTE");
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            Saldo[i] = Saldo[i] - imputSaldo;
-                                                                            Console.WriteLine($"\nValor Trasnferido para {Nome[j]}: R${imputSaldo} || Saldo Atual em conta: R${Saldo[i]}");
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        Console.WriteLine("\nCONTA INEXISTENTE");
-                                                                    }
-
-                                                                }
-                                                                else if (ID[i] == ID[j])
-                                                                {
-                                                                    Console.WriteLine($"\nA conta a qual deseja Transferir é sua, {Nome[i]}");
-                                                                }
+                                                                Saldo[posição] = Saldo[posiçãob] - imputSaldo;
+                                                                Console.WriteLine($"\nValor Trasnferido para {Nome[posiçãob]}: R${imputSaldo} || Saldo Atual em conta: R${Saldo[posição]}");
                                                             }
-                                                            break;
-
-                                                        default:
-                                                            Console.WriteLine("\n OPÇÃO INVÁLIDA ");
-                                                            break;
+                                                        }
                                                     }
                                                 }
-                                                else
-                                                {
-                                                    Console.WriteLine("\nCONTA INEXISTENTE");
-                                                }
-                                            }
-                                            break;
+                                                break;
 
+                                            case 4:
+                                                Console.WriteLine($"\nBem vindo {Nome[posição]}, Seu Saldo atual em conta é: R${Saldo[posição]}");
+                                                break;
+                                        }
                                     }
-                                    break;
-
-                                case 4:
-
-                                    Console.WriteLine("\nConsulta de Saldo: ");
-                                    Console.WriteLine("\nInforme seu Nome ou ID");
-                                    Console.WriteLine("\n1 - Nome");
-                                    Console.WriteLine("2 - ID");
-                                    Console.WriteLine("\n0 - Cancelar Operação.");
-                                    Console.Write("-> ");
-                                    imputc = Convert.ToInt32(Console.ReadLine());
-
-                                    switch (imputc)
-                                    {
-                                        case 0:
-                                            imputb = 010101;
-                                            break;
-
-                                        case 1:
-
-                                            Console.WriteLine("\nInforme seu Nome: ");
-                                            Console.Write("-> ");
-                                            imputNome = Console.ReadLine();
-
-                                            for (int i = 0; i < Nome.Length; i++)
-                                            {
-                                                if (imputNome == Nome[i])
-                                                {
-                                                    Console.WriteLine($"\n{Nome[i]}, Seu Saldo atual em conta é: R${Saldo[i]}");
-                                                }
-                                            }
-                                            break;
-
-                                        case 2:
-
-                                            Console.WriteLine("\nInforme seu Nome: ");
-                                            Console.Write("-> ");
-                                            imputID = Convert.ToInt32(Console.ReadLine());
-
-                                            for (int i = 0; i < ID.Length; i++)
-                                            {
-                                                if (imputID == ID[i])
-                                                {
-                                                    Console.WriteLine($"\n{Nome[i]}, Seu Saldo atual em conta é: R${Saldo[i]}");
-                                                }
-
-                                            }
-                                            break;
-
-                                    }
-                                    break;
-                                default:
-                                    Console.WriteLine("\n OPÇÃO INVÁLIDA ");
-                                    break;
+                                } while (imputc != 0);
                             }
                         } while (imputb != 010101);
-
 
                         break;
 
