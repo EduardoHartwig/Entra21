@@ -7,7 +7,7 @@ namespace Exercícios2
 
         static void Main(string[] args)
         {
-
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             int imput = 0;
 
             Console.WriteLine(" ");
@@ -31,7 +31,7 @@ namespace Exercícios2
                 Console.WriteLine(" ");
                 Console.Write("-> ");
                 imput = Convert.ToInt32(Console.ReadLine());
-
+                Console.Clear();
 
                 switch (imput)
                 {
@@ -258,8 +258,6 @@ namespace Exercícios2
                         break;
 
                     case 7:
-
-
                         int imputb = -1;
                         int imputc = -1;
                         int imputd = -1;
@@ -277,8 +275,6 @@ namespace Exercícios2
                             int imputID = 0;
                             int imputIDb = 0;
                             double imputSaldo;
-
-
                             string imputVerificador;
                             string imputVerificadorb;
 
@@ -286,9 +282,7 @@ namespace Exercícios2
                             Console.Write("->");
                             imputVerificador = Console.ReadLine();
 
-
                             imputc = (int.TryParse(imputVerificador, out imputID)) ? 1 : 2;
-
 
                             for (int i = 0; i < Nome.Length; i++)
                             {
@@ -314,7 +308,6 @@ namespace Exercícios2
                                 }
                             }
 
-
                             while (imputc == 1 || imputc == 2)
                             {
                                 do
@@ -327,6 +320,7 @@ namespace Exercícios2
                                     Console.WriteLine("\n0 - Sair.");
                                     Console.Write("-> ");
                                     imputb = Convert.ToInt32(Console.ReadLine());
+                                    Console.Clear();
                                     if (imputb == 0)
                                     {
                                         imputb = 010101;
@@ -348,7 +342,7 @@ namespace Exercícios2
                                                 else
                                                 {
                                                     Saldo[posição] = Saldo[posição] - imputSaldo;
-                                                    Console.WriteLine($"\nValor Sacado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[posição]}");
+                                                    Console.WriteLine($"\nValor Sacado: {imputSaldo.ToString("C")} || Saldo Atual em conta: {Saldo[posição].ToString("C")}");
                                                 }
                                                 break;
 
@@ -364,7 +358,7 @@ namespace Exercícios2
                                                 else
                                                 {
                                                     Saldo[posição] = Saldo[posição] + imputSaldo;
-                                                    Console.WriteLine($"\nValor Depositado: R${imputSaldo} || Saldo Atual em conta: R${Saldo[posição]}.");
+                                                    Console.WriteLine($"\nValor Depositado: {imputSaldo.ToString("C")} || Saldo Atual em conta: {Saldo[posição].ToString("C")}.");
                                                 }
                                                 break;
 
@@ -372,7 +366,6 @@ namespace Exercícios2
                                                 Console.WriteLine($"\nBem Vindo {Nome[posição]}, Para Quem Deseja Transferir?");
                                                 Console.Write("-> ");
                                                 imputVerificadorb = Console.ReadLine();
-
 
                                                 imputd = (int.TryParse(imputVerificadorb, out imputIDb)) ? 1 : 2;
 
@@ -400,7 +393,7 @@ namespace Exercícios2
                                                     }
                                                 }
 
-                                                if (posição != posiçãob)
+                                                if (posição == posiçãob)
                                                 {
                                                     Console.WriteLine($"\nA conta a qual deseja Transferir é sua, {Nome[posição]}");
                                                 }
@@ -418,14 +411,15 @@ namespace Exercícios2
                                                         }
                                                         else
                                                         {
-                                                            if (imputSaldo < Saldo[posição])
+                                                            if (imputSaldo > Saldo[posição])
                                                             {
                                                                 Console.WriteLine("\n Saldo Insuficiente ");
                                                             }
                                                             else
                                                             {
-                                                                Saldo[posição] = Saldo[posiçãob] - imputSaldo;
-                                                                Console.WriteLine($"\nValor Trasnferido para {Nome[posiçãob]}: R${imputSaldo} || Saldo Atual em conta: R${Saldo[posição]}");
+                                                                Saldo[posição] = Saldo[posição] - imputSaldo;
+                                                                Console.WriteLine($"\nValor Trasnferido para {Nome[posiçãob]}: {imputSaldo.ToString("C")} || Saldo Atual em conta: {Saldo[posição].ToString("C")}");
+                                                                imputd = -1;
                                                             }
                                                         }
                                                     }
@@ -433,7 +427,7 @@ namespace Exercícios2
                                                 break;
 
                                             case 4:
-                                                Console.WriteLine($"\nBem vindo {Nome[posição]}, Seu Saldo atual em conta é: R${Saldo[posição]}");
+                                                Console.WriteLine($"\nBem vindo {Nome[posição]}, Seu Saldo atual em conta é: {Saldo[posição].ToString("C")}");
                                                 break;
                                         }
                                     }
@@ -443,14 +437,11 @@ namespace Exercícios2
 
                         break;
 
-
                     default:
-
                         Console.WriteLine(" ");
                         Console.WriteLine("Opção inválida. Tente Novamente.");
 
                         break;
-
                 }
             } while (imput != 010101);
         }

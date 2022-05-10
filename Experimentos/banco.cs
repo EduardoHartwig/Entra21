@@ -7,22 +7,26 @@ namespace experimentos
         static void Main(string[] args)
         {
 
-            string imputverificador = "7589", imputNome;
-            double imputID, imputc;
+            int entrada = 0;
 
-            imputID = 1200.454545;
+            static int Divisor(int a, int b)
+            {
+                int res = 0;
 
-            Console.WriteLine($"R${imputID.ToString("C")}");
+                return res = ((a % b) == 0) ? (a / b) : 0;
+            }
 
+            Console.WriteLine("Digite um valor: ");
+            entrada = Convert.ToInt32(Console.ReadLine());
 
-            
+            for (int i = entrada; i > 0; i--)
+            {
+                if (Divisor(entrada, i) > 0)
+                {
+                    Console.WriteLine(Divisor(entrada, i)); 
+                }
 
-            
-           
-
-            
-
-
+            }
 
         }
     }
