@@ -160,6 +160,12 @@ namespace BlockChain
 
             } while (imput != 010101);
 
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n¦==============================================================¦");
+            Console.WriteLine("¦    Eduardo Hartwig Vieira, Josué Demetrio, Ana Carolina      ¦");
+            Console.WriteLine("¦==============================================================¦");
+            
+            
         }
     }
 }
