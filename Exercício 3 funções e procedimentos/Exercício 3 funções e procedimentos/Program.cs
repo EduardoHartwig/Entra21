@@ -184,6 +184,12 @@ namespace Exercício_3_funções_e_procedimentos
                         }
                         Bubble(valor);
                         Console.WriteLine($"\nO maior valor é {valor[(valor.Length - 1)]}");
+
+                        for(int i = 0; i < valor.Length; i++)
+                        {
+                            Console.WriteLine(valor[i]);
+                        }
+
                         break;
 
                     case 3:
@@ -221,7 +227,6 @@ namespace Exercício_3_funções_e_procedimentos
                         Console.WriteLine("¦==============================================================¦");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         break;
-
                 }
             } while (imput != 010101);
         }
