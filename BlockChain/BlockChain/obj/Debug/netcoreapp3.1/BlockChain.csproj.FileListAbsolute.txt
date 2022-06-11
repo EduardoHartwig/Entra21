@@ -1,0 +1,14 @@
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\bin\Debug\netcoreapp3.1\BlockChain.exe
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\bin\Debug\netcoreapp3.1\BlockChain.deps.json
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\bin\Debug\netcoreapp3.1\BlockChain.runtimeconfig.json
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\bin\Debug\netcoreapp3.1\BlockChain.runtimeconfig.dev.json
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\bin\Debug\netcoreapp3.1\BlockChain.dll
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\bin\Debug\netcoreapp3.1\BlockChain.pdb
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.csproj.AssemblyReference.cache
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.AssemblyInfoInputs.cache
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.AssemblyInfo.cs
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.csproj.CoreCompileInputs.cache
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.dll
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.pdb
+C:\Repositórios\Entra21 - C#\BlockChain\BlockChain\obj\Debug\netcoreapp3.1\BlockChain.genruntimeconfig.cache
