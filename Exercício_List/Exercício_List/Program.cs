@@ -266,6 +266,10 @@ namespace Exercício_List
             return produtos;
         }
 
+
+
+
+
         public static void ListarProdutos(List<Produto> produtos)
         {
             Console.WriteLine("\nProdutos a Venda: \n");
@@ -322,16 +326,16 @@ namespace Exercício_List
 
             produtos = PreencherProdutos(produtos);
 
-            //Cliente cliente = new Cliente();
-            //cliente.NomeCliente = "Eduardo";
-            //cliente.CPFCliente = "092";
-            //cliente.EnderecoCliente = "rua papapa";
-            //clientes.Add(cliente);
+            Cliente cliente = new Cliente();
+            cliente.NomeCliente = "Eduardo";
+            cliente.CPFCliente = "092";
+            cliente.EnderecoCliente = "rua papapa";
+            clientes.Add(cliente);
 
-            //Vendedor vendedor = new Vendedor();
-            //vendedor.NomeVendedor = "Eduardo";
-            //vendedor.CodigoCrachaVendedor = "092";
-            //vendedores.Add(vendedor);
+            Vendedor vendedor = new Vendedor();
+            vendedor.NomeVendedor = "Eduardo";
+            vendedor.CodigoCrachaVendedor = "092";
+            vendedores.Add(vendedor);
 
             do
             {
@@ -373,24 +377,24 @@ namespace Exercício_List
                                     imputb = 010101;
                                     break;
 
-                                case 1:
-                                    Cliente cliente = new Cliente();
-                                    Console.WriteLine("Cadastro de Cliente.");
-                                    cliente.IDCliente = CadastrarClienteID(clientes);
-                                    cliente.NomeCliente = CadastrarNome();
-                                    cliente.CPFCliente = CadastrarCpfCliente();
-                                    cliente.EnderecoCliente = CadastrarEnderecoCliente();
-                                    clientes.Add(cliente);
-                                    break;
+                                //case 1:
+                                //    Cliente cliente = new Cliente();
+                                //    Console.WriteLine("Cadastro de Cliente.");
+                                //    cliente.IDCliente = CadastrarClienteID(clientes);
+                                //    cliente.NomeCliente = CadastrarNome();
+                                //    cliente.CPFCliente = CadastrarCpfCliente();
+                                //    cliente.EnderecoCliente = CadastrarEnderecoCliente();
+                                //    clientes.Add(cliente);
+                                //    break;
 
-                                case 2:
-                                    Vendedor vendedor = new Vendedor();
-                                    Console.WriteLine("Cadastro de Vendedor.");
-                                    vendedor.IDVendedor = CadastrarVendedorID(vendedores);
-                                    vendedor.NomeVendedor = CadastrarNome();
-                                    vendedor.CodigoCrachaVendedor = CadastrarCracha();
-                                    vendedores.Add(vendedor);
-                                    break;
+                                //case 2:
+                                //    Vendedor vendedor = new Vendedor();
+                                //    Console.WriteLine("Cadastro de Vendedor.");
+                                //    vendedor.IDVendedor = CadastrarVendedorID(vendedores);
+                                //    vendedor.NomeVendedor = CadastrarNome();
+                                //    vendedor.CodigoCrachaVendedor = CadastrarCracha();
+                                //    vendedores.Add(vendedor);
+                                //    break;
 
                                 case 3:
                                     Produto produto = new Produto();
