@@ -80,9 +80,12 @@ namespace Crud
 
             do
             {
-                Console.WriteLine("\n(1) - Cadastro.");
-                Console.WriteLine("(2) - Exibir Lista.");
-                Console.WriteLine("(3) - Atualizar.");  
+                Console.WriteLine("\n(1) - Cadastrar Pessoa.");
+                Console.WriteLine("(2) - Exibir Pessoas.");
+                Console.WriteLine("(3) - Atualizar.");
+                Console.WriteLine("(4) - Delete. (Incompleto)");
+                Console.WriteLine("(5) - Cadastrar Telefone.");
+                Console.WriteLine("(6) - Exibir Pessoa e seus Telefones.");
                 Console.WriteLine("\n(0) - Sair.");
                 Console.Write("-> ");
                 entrada = Convert.ToInt32(Console.ReadLine());
@@ -268,6 +271,57 @@ namespace Crud
                                     Console.WriteLine("\n\nCadastro realizado com Sucesso.");
                                 }
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                        break;
+
+                    case 6:
+                        Console.WriteLine("\nExibir Pessoa e seus Telefones.");
+
+
+                        try
+                        {
+                            SqlDataReader resultado;
+                             Console.WriteLine("\nQual id deseja ver os Dados?");
+                            int id = Convert.ToInt32(Console.ReadLine());
+
+                            var query = @"SELECT p.Id as IdPessoa, p.Nome as Nome, p.Cpf as Cpf, t.DDD as DDD, t.Numero as Numero FROM Pessoa p INNER JOIN Telefone t ON p.Id = @id";
+                            using (var sql = new SqlConnection(connection))
+                            {
+                                SqlCommand command = new SqlCommand(query, sql);
+                                command.Parameters.AddWithValue("@id", id);
+                                command.Connection.Open();
+                                resultado = command.ExecuteReader();
+
+                                while (resultado.Read())
+                                {
+                                    pessoas.Add(new Pessoa(resultado.GetInt32(resultado.GetOrdinal("IdPessoa")),
+                                                           resultado.GetString(resultado.GetOrdinal("Nome")),
+                                                           resultado.GetString(resultado.GetOrdinal("Cpf"))));
+
+                                    telefones.Add(new Telefone(resultado.GetString(resultado.GetOrdinal("DDD")),
+                                                               resultado.GetString(resultado.GetOrdinal("Numero"))));
+                                }
+                            }
+
+                            Console.WriteLine("========Listagem========");
+                            foreach (Pessoa p in pessoas)
+                            {
+                                Console.WriteLine("========Inicio========");
+                                Console.WriteLine("Nome: " + p.Nome);
+                                Console.WriteLine("CPF: " + p.Cpf);
+                                foreach (Telefone t in telefones)
+                                {
+                                    Console.WriteLine("DDD: (" + t.DDD +")");
+                                    Console.WriteLine("Número: " + t.Numero);
+                                }
+                                Console.WriteLine("========Fim========");
+                            }
+
+
                         }
                         catch (Exception ex)
                         {

@@ -26,6 +26,13 @@ namespace Crud
             Naturalidade = naturalidade;
         }
 
+        public Pessoa(int id, string nome, string cpf)
+        {
+            Id = id;
+            Nome = nome;
+            Cpf = cpf;
+        }
+
         public Pessoa(int id, string nome, string cpf, string rg, DateTime dataNascimento, string naturalidade)
         {
             Id = id;

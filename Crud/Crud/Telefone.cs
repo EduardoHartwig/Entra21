@@ -18,6 +18,12 @@ namespace Crud
             IdPessoa = idPessoa;
         }
 
+        public Telefone(string dDD, string numero)
+        {
+            DDD = dDD;
+            Numero = numero;
+        }
+
         public Telefone()
         {
         }
