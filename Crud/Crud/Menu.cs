@@ -39,6 +39,20 @@ namespace Crud
             return Console.ReadLine();
         }
 
+        public static string CadastrarDDD()
+        {
+            Console.WriteLine("\n\nInforme seu DDD: ");
+            Console.Write("-> ");
+            return Console.ReadLine();
+        }
+
+        public static string CadastrarNumero()
+        {
+            Console.WriteLine("\n\nInforme seu Número: ");
+            Console.Write("-> ");
+            return Console.ReadLine();
+        }
+
         public static DateTime CadastrarDataNascimento()
         {
             Console.WriteLine("\n\nInforme sua Data de Nascimento: ");
@@ -57,6 +71,8 @@ namespace Crud
         {
             int entrada = -1;
             List<Pessoa> pessoas = new List<Pessoa>();
+            List<Telefone> telefones = new List<Telefone>();
+
             string connection = @"Data Source=ITELABD07\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
             Conexao conexao = new Conexao();
             SqlCommand cmd = new SqlCommand();
@@ -82,6 +98,7 @@ namespace Crud
                         Console.WriteLine("Cadastro");
          
                         Pessoa pessoa = new Pessoa(CadastrarNome(), CadastrarCpf(), CadastrarRg(), CadastrarDataNascimento(), CadastrarNaturalidade());
+                        pessoas.Add(pessoa);
                         cmd.CommandText = "insert into Pessoa (Nome, Cpf, Rg, DataNascimento, Naturalidade) values (@nome, @cpf, @rg, @dataNascimento, @naturalidade)";
                         cmd.Parameters.AddWithValue("@nome", pessoa.Nome);
                         cmd.Parameters.AddWithValue("@cpf", pessoa.Cpf);
@@ -183,6 +200,9 @@ namespace Crud
                                     SqlCommand command = new SqlCommand(query2, sql);
                                     command.Connection.Open();
                                     command.CommandText = "UPDATE Pessoa SET Nome = @nome, Rg = @rg WHERE Id = @id;";
+
+                                     
+
                                     command.Parameters.AddWithValue("@id", id);
                                     command.Parameters.AddWithValue("@nome", CadastrarNome());
                                     command.Parameters.AddWithValue("@rg", CadastrarRg());
@@ -199,6 +219,60 @@ namespace Crud
                         break;
 
                     case 4:
+
+                        break;
+
+                    case 5:
+                        Console.WriteLine("Cadastrar Telefone: ");
+
+                        try
+                        {
+                            var query = @"select count(Id) from Pessoa where Id = @id";
+                            SqlDataReader resultado;
+
+                            Console.WriteLine("\nQual id deseja Cadastrar um telefone ?");
+                            int id = Convert.ToInt32(Console.ReadLine());
+
+                            bool existe = false;
+
+
+                            using (var sql = new SqlConnection(connection))
+                            {
+                                SqlCommand command = new SqlCommand(query, sql);
+                                command.Parameters.AddWithValue("@id", id);
+
+                                command.Connection.Open();
+                                resultado = command.ExecuteReader();
+
+                                while (resultado.Read())
+                                {
+                                    existe = true;
+                                }
+                            }
+
+                            var query2 = @"insert into Telefone (DDD, Numero, IdPessoa) values (@dDD, @numero, @idPessoa)";
+
+                            if (existe)
+                            {
+                                using (var sql = new SqlConnection(connection))
+                                {
+                                    SqlCommand command = new SqlCommand(query2, sql);
+                                    command.Connection.Open();
+                                    command.CommandText = "insert into Telefone (DDD, Numero, IdPessoa) values (@dDD, @numero, @idPessoa)";
+                                    Telefone telefone = new Telefone(CadastrarDDD().Substring(0, 3), CadastrarNumero().Substring(0, 9), id);
+
+                                    command.Parameters.AddWithValue("@dDD", telefone.DDD);
+                                    command.Parameters.AddWithValue("@numero", telefone.Numero);
+                                    command.Parameters.AddWithValue("@idPessoa", telefone.IdPessoa);
+                                    command.ExecuteNonQuery();
+                                    Console.WriteLine("\n\nCadastro realizado com Sucesso.");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
 
                         break;
                 }
