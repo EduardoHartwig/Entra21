@@ -7,7 +7,7 @@ namespace Crud
 {
     class Menu
     {
-      
+
 
         public static void ListarCadastros(List<Pessoa> pessoas)
         {
@@ -25,7 +25,7 @@ namespace Crud
             return Console.ReadLine();
         }
 
-       public static string CadastrarCpf()
+        public static string CadastrarCpf()
         {
             Console.WriteLine("\n\nInforme seu CPF: ");
             Console.Write("-> ");
@@ -73,7 +73,7 @@ namespace Crud
             List<Pessoa> pessoas = new List<Pessoa>();
             List<Telefone> telefones = new List<Telefone>();
 
-            string connection = @"Data Source=ITELABD07\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
+            string connection = @"Data Source=DESKTOP-SCRT0T7\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
             Conexao conexao = new Conexao();
             SqlCommand cmd = new SqlCommand();
 
@@ -82,10 +82,12 @@ namespace Crud
             {
                 Console.WriteLine("\n(1) - Cadastrar Pessoa.");
                 Console.WriteLine("(2) - Exibir Pessoas.");
-                Console.WriteLine("(3) - Atualizar.");
-                Console.WriteLine("(4) - Delete. (Incompleto)");
+                Console.WriteLine("(3) - Atualizar Pessoa.");
+                Console.WriteLine("(4) - Deletar Pessoa.");
                 Console.WriteLine("(5) - Cadastrar Telefone.");
                 Console.WriteLine("(6) - Exibir Pessoa e seus Telefones.");
+                Console.WriteLine("(7) - Deletar Telefone.");
+                Console.WriteLine("(8) - Listar Telefones usando o nome.");
                 Console.WriteLine("\n(0) - Sair.");
                 Console.Write("-> ");
                 entrada = Convert.ToInt32(Console.ReadLine());
@@ -98,8 +100,10 @@ namespace Crud
                         break;
 
                     case 1:
+                        pessoas.Clear();
+                        telefones.Clear();
                         Console.WriteLine("Cadastro");
-         
+
                         Pessoa pessoa = new Pessoa(CadastrarNome(), CadastrarCpf(), CadastrarRg(), CadastrarDataNascimento(), CadastrarNaturalidade());
                         pessoas.Add(pessoa);
                         cmd.CommandText = "insert into Pessoa (Nome, Cpf, Rg, DataNascimento, Naturalidade) values (@nome, @cpf, @rg, @dataNascimento, @naturalidade)";
@@ -124,8 +128,10 @@ namespace Crud
                         break;
 
                     case 2:
+                        pessoas.Clear();
+                        telefones.Clear();
                         Console.WriteLine("Exibir");
-                        
+
 
 
                         try
@@ -151,7 +157,8 @@ namespace Crud
                             Console.WriteLine("========Listagem========");
                             foreach (Pessoa p in pessoas)
                             {
-                                Console.WriteLine("========Inicio========");
+                                Console.WriteLine("\n\n========Inicio========");
+                                Console.WriteLine("Id: " + p.Id);
                                 Console.WriteLine("Nome: " + p.Nome);
                                 Console.WriteLine("CPF: " + p.Cpf);
                                 Console.WriteLine("Rg: " + p.Rg);
@@ -167,6 +174,8 @@ namespace Crud
                         break;
 
                     case 3:
+                        pessoas.Clear();
+                        telefones.Clear();
                         Console.WriteLine("Update: ");
 
                         try
@@ -187,7 +196,7 @@ namespace Crud
 
                                 command.Connection.Open();
                                 resultado = command.ExecuteReader();
-                                
+
                                 while (resultado.Read())
                                 {
                                     existe = true;
@@ -204,7 +213,7 @@ namespace Crud
                                     command.Connection.Open();
                                     command.CommandText = "UPDATE Pessoa SET Nome = @nome, Rg = @rg WHERE Id = @id;";
 
-                                     
+
 
                                     command.Parameters.AddWithValue("@id", id);
                                     command.Parameters.AddWithValue("@nome", CadastrarNome());
@@ -215,17 +224,67 @@ namespace Crud
                                 }
                             }
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             throw;
                         }
                         break;
 
                     case 4:
+                        pessoas.Clear();
+                        telefones.Clear();
+                        Console.WriteLine("Delete");
+
+                        try
+                        {
+                            var query = @"select count(Id) from Pessoa where Id = @id";
+                            SqlDataReader resultado;
+
+                            Console.WriteLine("\nQual id deseja deletar ?");
+                            int id = Convert.ToInt32(Console.ReadLine());
+
+                            bool existe = false;
+
+
+                            using (var sql = new SqlConnection(connection))
+                            {
+                                SqlCommand command = new SqlCommand(query, sql);
+                                command.Parameters.AddWithValue("@id", id);
+
+                                command.Connection.Open();
+                                resultado = command.ExecuteReader();
+
+                                while (resultado.Read())
+                                {
+                                    existe = true;
+                                }
+                            }
+
+                            var query2 = @"delete from Pessoa where id = @id;";
+
+                            if (existe)
+                            {
+                                using (var sql = new SqlConnection(connection))
+                                {
+                                    SqlCommand command = new SqlCommand(query2, sql);
+                                    command.Parameters.AddWithValue("@id", id);
+                                    command.Connection.Open();
+                                    command.ExecuteNonQuery();
+                                    Console.WriteLine("\n\nDelete realizado com Sucesso.");
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            throw;
+                        }
+
 
                         break;
 
                     case 5:
+                        pessoas.Clear();
+                        telefones.Clear();
                         Console.WriteLine("Cadastrar Telefone: ");
 
                         try
@@ -271,6 +330,10 @@ namespace Crud
                                     Console.WriteLine("\n\nCadastro realizado com Sucesso.");
                                 }
                             }
+                            else
+                            {
+                                Console.WriteLine("\nId não encontrado.");
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -279,16 +342,20 @@ namespace Crud
                         break;
 
                     case 6:
+                        pessoas.Clear();
+                        telefones.Clear();
+
                         Console.WriteLine("\nExibir Pessoa e seus Telefones.");
 
 
                         try
                         {
                             SqlDataReader resultado;
-                             Console.WriteLine("\nQual id deseja ver os Dados?");
+                            Console.WriteLine("\nQual id deseja ver os Dados?");
                             int id = Convert.ToInt32(Console.ReadLine());
+                            bool existe = false;
 
-                            var query = @"SELECT p.Id as IdPessoa, p.Nome as Nome, p.Cpf as Cpf, t.DDD as DDD, t.Numero as Numero FROM Pessoa p INNER JOIN Telefone t ON p.Id = @id";
+                            var query = @"SELECT p.Id as IdPessoa, p.Nome as Nome, p.Cpf as Cpf, p.Rg as RG, p.DataNascimento as DataNascimento, p.Naturalidade as Naturalidade FROM Pessoa p WHERE p.Id = @id";
                             using (var sql = new SqlConnection(connection))
                             {
                                 SqlCommand command = new SqlCommand(query, sql);
@@ -300,34 +367,232 @@ namespace Crud
                                 {
                                     pessoas.Add(new Pessoa(resultado.GetInt32(resultado.GetOrdinal("IdPessoa")),
                                                            resultado.GetString(resultado.GetOrdinal("Nome")),
-                                                           resultado.GetString(resultado.GetOrdinal("Cpf"))));
+                                                           resultado.GetString(resultado.GetOrdinal("Cpf")),
+                                                           resultado.GetString(resultado.GetOrdinal("Rg")),
+                                                           resultado.GetDateTime(resultado.GetOrdinal("DataNascimento")),
+                                                           resultado.GetString(resultado.GetOrdinal("Naturalidade"))));
+                                    existe = true;
 
-                                    telefones.Add(new Telefone(resultado.GetString(resultado.GetOrdinal("DDD")),
-                                                               resultado.GetString(resultado.GetOrdinal("Numero"))));
+ 
                                 }
                             }
 
-                            Console.WriteLine("========Listagem========");
-                            foreach (Pessoa p in pessoas)
+                            if (existe)
                             {
-                                Console.WriteLine("========Inicio========");
-                                Console.WriteLine("Nome: " + p.Nome);
-                                Console.WriteLine("CPF: " + p.Cpf);
-                                foreach (Telefone t in telefones)
+                                var query2 = @"SELECT t.Id as IdTelefone, t.DDD as DDD, t.Numero as Numero FROM Pessoa p INNER JOIN Telefone t ON p.Id = t.IdPessoa where t.IdPessoa  = @id";
+                                using (var sql = new SqlConnection(connection))
                                 {
-                                    Console.WriteLine("DDD: (" + t.DDD +")");
-                                    Console.WriteLine("Número: " + t.Numero);
+                                    SqlCommand command = new SqlCommand(query2, sql);
+                                    command.Parameters.AddWithValue("@id", id);
+                                    command.Connection.Open();
+                                    resultado = command.ExecuteReader();
+
+                                    while (resultado.Read())
+                                    {
+                                        pessoas[0].Telefone.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
+                                                                             resultado.GetString(resultado.GetOrdinal("DDD")),
+                                                                             resultado.GetString(resultado.GetOrdinal("Numero"))));
+                                    }
                                 }
-                                Console.WriteLine("========Fim========");
+
+
+                                Console.WriteLine("========Listagem========");
+                                foreach (Pessoa p in pessoas)
+                                {
+                                    Console.WriteLine("\n\n========Inicio========");
+                                    Console.WriteLine("Nome: " + p.Nome);
+                                    Console.WriteLine("CPF: " + p.Cpf);
+                                    Console.WriteLine("Rg: " + p.Rg);
+                                    Console.WriteLine("Data de Nascimento: " + p.DataNascimento);
+                                    Console.WriteLine("Naturalidade: " + p.Naturalidade);
+
+                                    foreach (Telefone t in p.Telefone)
+                                    {
+                                        Console.WriteLine("\nTelefone: ");
+                                        Console.WriteLine("Id: " + t.Id);
+                                        Console.WriteLine("DDD: " + t.DDD);
+                                        Console.WriteLine("Número: " + t.Numero);
+                                    }
+                                    Console.WriteLine("========Fim========");
+                                }
                             }
-
-
+                            else
+                            {
+                                Console.WriteLine("\nId não encontrado.");
+                            }
                         }
                         catch (Exception ex)
                         {
                             throw;
                         }
+                        break;
 
+                    case 7:
+                        pessoas.Clear();
+                        telefones.Clear();
+                        Console.WriteLine("\nDeletar Telefone de uma pessoa.");
+
+                        try
+                        {
+                            SqlDataReader resultado;
+                            var query = @"SELECT Id, Nome FROM Pessoa";
+                            using (var sql = new SqlConnection(connection))
+                            {
+                                SqlCommand command = new SqlCommand(query, sql);
+                                command.Connection.Open();
+                                resultado = command.ExecuteReader();
+
+                                while (resultado.Read())
+                                {
+                                    pessoas.Add(new Pessoa(resultado.GetInt32(resultado.GetOrdinal("Id")),
+                                                           resultado.GetString(resultado.GetOrdinal("Nome"))));
+                                }
+                            }
+                            Console.WriteLine("\n========Listagem========");
+                            foreach (Pessoa p in pessoas)
+                            {
+                                Console.WriteLine("\n\n========Inicio========");
+                                Console.WriteLine("Id: " + p.Id);
+                                Console.WriteLine("Nome: " + p.Nome);
+                                Console.WriteLine("========Fim========");
+                            }
+
+                            Console.WriteLine("\nQual id deseja Apagar um telefone ?");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            if (id <= pessoas.Count)
+                            {
+                                var query2 = @"SELECT t.Id as IdTelefone, t.DDD as DDD, t.Numero as Numero FROM Pessoa p INNER JOIN Telefone t ON p.Id = @id";
+                                using (var sql = new SqlConnection(connection))
+                                {
+                                    SqlCommand command = new SqlCommand(query2, sql);
+                                    command.Parameters.AddWithValue("@id", id);
+                                    command.Connection.Open();
+                                    resultado = command.ExecuteReader();
+
+                                    while (resultado.Read())
+                                    {
+                                        pessoas[0].Telefone.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
+                                                                             resultado.GetString(resultado.GetOrdinal("DDD")),
+                                                                             resultado.GetString(resultado.GetOrdinal("Numero"))));
+                                    }
+                                }
+
+                                foreach (Pessoa p in pessoas)
+                                {
+                                    foreach (Telefone t in p.Telefone)
+                                    {
+                                        Console.WriteLine("\nTelefone: ");
+                                        Console.WriteLine("Id: " + t.Id);
+                                        Console.WriteLine("DDD: " + t.DDD);
+                                        Console.WriteLine("Número: " + t.Numero);
+                                    }
+                                    Console.WriteLine("========Fim========");
+                                }
+
+                                Console.WriteLine("Qual Telefone deseja apagar ?");
+                                int id2 = Convert.ToInt32(Console.ReadLine());
+
+                                if(id2 <= pessoas[0].Telefone.Count)
+                                {
+                                    var query3 = @"delete from Telefone where IdPessoa = @idPessoa and Id = @idTelefone";
+                                    using (var sql = new SqlConnection(connection))
+                                    {
+                                        SqlCommand command = new SqlCommand(query3, sql);
+                                        command.Parameters.AddWithValue("@idPessoa", id);
+                                        command.Parameters.AddWithValue("@idTelefone", id2);
+                                        command.Connection.Open();
+                                        resultado = command.ExecuteReader();
+                                        Console.WriteLine("Delete realizado com sucesso.");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Este Id de Telefone não existe.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id de Pessoa inválido.");
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            throw;
+                        }
+                        break;
+
+                    case 8:
+                        pessoas.Clear();
+                        telefones.Clear();
+                        Console.WriteLine("\nListar Telefones usando o nome.");
+
+                        try
+                        {
+                            Console.WriteLine("Informe o Nome: ");
+                            string imput = Console.ReadLine();
+                            bool existe = false;
+
+                            SqlDataReader resultado;
+                            var query = @"SELECT p.Id as IdPessoa, p.Nome as Nome from Pessoa p where p.Nome like @entrada";
+                            using (var sql = new SqlConnection(connection))
+                            {
+                                SqlCommand command = new SqlCommand(query, sql);
+                                command.Parameters.AddWithValue("@entrada", "%" + imput + "%");
+                                command.Connection.Open();
+                                resultado = command.ExecuteReader();
+
+                                while(resultado.Read())
+                                {
+                                    pessoas.Add(new Pessoa(resultado.GetInt32(resultado.GetOrdinal("IdPessoa")),
+                                                           resultado.GetString(resultado.GetOrdinal("Nome"))));
+                                    existe = true;
+                                }
+
+                            }
+
+                            if (existe)
+                            {
+                                var query2 = @"SELECT t.Id as IdTelefone, t.DDD as DDD, t.Numero as Numero FROM Pessoa p INNER JOIN Telefone t ON p.Nome like @entrada";
+                                using (var sql = new SqlConnection(connection))
+                                {
+                                    SqlCommand command = new SqlCommand(query2, sql);
+                                    command.Parameters.AddWithValue("@entrada", "%" + imput + "%");
+                                    command.Connection.Open();
+                                    resultado = command.ExecuteReader();
+
+                                    while (resultado.Read())
+                                    {
+                                        pessoas[0].Telefone.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
+                                                                             resultado.GetString(resultado.GetOrdinal("DDD")),
+                                                                             resultado.GetString(resultado.GetOrdinal("Numero"))));
+                                    }
+                                }
+                                Console.WriteLine("========Listagem========");
+                                foreach (Pessoa p in pessoas)
+                                {
+                                    Console.WriteLine("========Inicio========");
+                                    Console.WriteLine("Id: " + p.Id);
+                                    Console.WriteLine("Nome: " + p.Nome);
+
+                                    foreach (Telefone t in p.Telefone)
+                                    {
+                                        Console.WriteLine("\nTelefone: ");
+                                        Console.WriteLine("Id: " + t.Id);
+                                        Console.WriteLine("DDD: " + t.DDD);
+                                        Console.WriteLine("Número: " + t.Numero);
+                                    }
+                                    Console.WriteLine("========Fim========");
+                                }
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            throw;
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("OPÇÃO INVÁLIDA");
                         break;
                 }
             } while (entrada != 010101);

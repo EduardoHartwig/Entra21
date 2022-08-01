@@ -17,6 +17,10 @@ namespace Crud
         public DateTime DataNascimento { get; set; }
         public string Naturalidade { get; set; }
 
+        public List<Telefone> Telefone { get; set; } = new List<Telefone>();
+        //public List<Produto> ListaDeProdutos { get; set; } = new List<Produto>();
+
+
         public Pessoa(string nome, string cpf, string rg, DateTime dataNascimento, string naturalidade)
         {
             Nome = nome;
@@ -26,11 +30,11 @@ namespace Crud
             Naturalidade = naturalidade;
         }
 
-        public Pessoa(int id, string nome, string cpf)
+
+        public Pessoa(int id, string nome)
         {
             Id = id;
             Nome = nome;
-            Cpf = cpf;
         }
 
         public Pessoa(int id, string nome, string cpf, string rg, DateTime dataNascimento, string naturalidade)
@@ -46,5 +50,7 @@ namespace Crud
         public Pessoa()
         {
         }
+
+
     }
 }

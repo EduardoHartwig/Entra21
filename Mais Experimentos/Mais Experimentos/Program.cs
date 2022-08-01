@@ -15,11 +15,11 @@ namespace Mais_Experimentos
             char Entrada = Convert.ToChar(Console.ReadLine());
             
 
-            if (Entrada.Equals('Y') || Entrada.Equals('y'))
+            if ('Y'.Equals(Entrada) || 'y'.Equals(Entrada))
             {
                 status = true;
             }
-            else if (Entrada.Equals('N') || Entrada.Equals('n'))
+            else if ('N'.Equals(Entrada) || 'n'.Equals(Entrada))
             {
                 status = false;
             }

@@ -12,7 +12,7 @@ namespace Crud
         public Conexao()
         {
             con = new SqlConnection();
-            con.ConnectionString = @"Data Source=ITELABD07\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
+            con.ConnectionString = @"Data Source=DESKTOP-SCRT0T7\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
         }
 
         public SqlConnection Conectar()

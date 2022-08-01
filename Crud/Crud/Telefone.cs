@@ -11,6 +11,7 @@ namespace Crud
         public string Numero { get; set; }
         public int IdPessoa { get; set; }
 
+
         public Telefone(string dDD, string numero, int idPessoa)
         {
             DDD = dDD;
@@ -18,8 +19,9 @@ namespace Crud
             IdPessoa = idPessoa;
         }
 
-        public Telefone(string dDD, string numero)
+        public Telefone(int id, string dDD, string numero)
         {
+            Id = id;
             DDD = dDD;
             Numero = numero;
         }
