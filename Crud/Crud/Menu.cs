@@ -73,7 +73,7 @@ namespace Crud
             List<Pessoa> pessoas = new List<Pessoa>();
             List<Telefone> telefones = new List<Telefone>();
 
-            string connection = @"Data Source=DESKTOP-SCRT0T7\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
+            string connection = @"Data Source=ITELABD07\SQLEXPRESS;Initial Catalog=Cadastro;Integrated Security=True";
             Conexao conexao = new Conexao();
             SqlCommand cmd = new SqlCommand();
 
@@ -203,7 +203,7 @@ namespace Crud
                                 }
                             }
 
-                            var query2 = @"UPDATE Pessoa SET Nome = @nome, Rg = @rg WHERE Id = @id;";
+                            var query2 = @"UPDATE Pessoa SET Nome = @nome, Cpf = @cpf, Rg = @rg, DataNascimento = @dataNascimento, Naturalida = @naturalidade WHERE Id = @id;";
 
                             if (existe)
                             {
@@ -211,17 +211,21 @@ namespace Crud
                                 {
                                     SqlCommand command = new SqlCommand(query2, sql);
                                     command.Connection.Open();
-                                    command.CommandText = "UPDATE Pessoa SET Nome = @nome, Rg = @rg WHERE Id = @id;";
-
-
 
                                     command.Parameters.AddWithValue("@id", id);
                                     command.Parameters.AddWithValue("@nome", CadastrarNome());
+                                    command.Parameters.AddWithValue("@cpf", CadastrarCpf());
                                     command.Parameters.AddWithValue("@rg", CadastrarRg());
+                                    command.Parameters.AddWithValue("@dataNascimento", CadastrarDataNascimento());
+                                    command.Parameters.AddWithValue("@naturalidade", CadastrarNaturalidade());
 
                                     command.ExecuteNonQuery();
                                     Console.WriteLine("\n\nUpdate realizado com Sucesso.");
                                 }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id não encontrado.");
                             }
                         }
                         catch (Exception e)
@@ -354,6 +358,7 @@ namespace Crud
                             Console.WriteLine("\nQual id deseja ver os Dados?");
                             int id = Convert.ToInt32(Console.ReadLine());
                             bool existe = false;
+                            bool existeTelefone = false;
 
                             var query = @"SELECT p.Id as IdPessoa, p.Nome as Nome, p.Cpf as Cpf, p.Rg as RG, p.DataNascimento as DataNascimento, p.Naturalidade as Naturalidade FROM Pessoa p WHERE p.Id = @id";
                             using (var sql = new SqlConnection(connection))
@@ -392,29 +397,37 @@ namespace Crud
                                         pessoas[0].Telefone.Add(new Telefone(resultado.GetInt32(resultado.GetOrdinal("IdTelefone")),
                                                                              resultado.GetString(resultado.GetOrdinal("DDD")),
                                                                              resultado.GetString(resultado.GetOrdinal("Numero"))));
+                                        existeTelefone = true;
                                     }
                                 }
 
-
-                                Console.WriteLine("========Listagem========");
-                                foreach (Pessoa p in pessoas)
+                                if (existeTelefone)
                                 {
-                                    Console.WriteLine("\n\n========Inicio========");
-                                    Console.WriteLine("Nome: " + p.Nome);
-                                    Console.WriteLine("CPF: " + p.Cpf);
-                                    Console.WriteLine("Rg: " + p.Rg);
-                                    Console.WriteLine("Data de Nascimento: " + p.DataNascimento);
-                                    Console.WriteLine("Naturalidade: " + p.Naturalidade);
-
-                                    foreach (Telefone t in p.Telefone)
+                                    Console.WriteLine("========Listagem========");
+                                    foreach (Pessoa p in pessoas)
                                     {
-                                        Console.WriteLine("\nTelefone: ");
-                                        Console.WriteLine("Id: " + t.Id);
-                                        Console.WriteLine("DDD: " + t.DDD);
-                                        Console.WriteLine("Número: " + t.Numero);
+                                        Console.WriteLine("\n\n========Inicio========");
+                                        Console.WriteLine("Nome: " + p.Nome);
+                                        Console.WriteLine("CPF: " + p.Cpf);
+                                        Console.WriteLine("Rg: " + p.Rg);
+                                        Console.WriteLine("Data de Nascimento: " + p.DataNascimento);
+                                        Console.WriteLine("Naturalidade: " + p.Naturalidade);
+
+                                        foreach (Telefone t in p.Telefone)
+                                        {
+                                            Console.WriteLine("\nTelefone: ");
+                                            Console.WriteLine("Id: " + t.Id);
+                                            Console.WriteLine("DDD: " + t.DDD);
+                                            Console.WriteLine("Número: " + t.Numero);
+                                        }
+                                        Console.WriteLine("========Fim========");
                                     }
-                                    Console.WriteLine("========Fim========");
                                 }
+                                else
+                                {
+                                    Console.WriteLine("Este Id não possui Telefone.");
+                                }
+                                
                             }
                             else
                             {
