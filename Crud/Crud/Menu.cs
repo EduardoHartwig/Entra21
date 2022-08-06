@@ -604,6 +604,10 @@ namespace Crud
                         }
                         break;
 
+                    case 9:
+
+                        break;
+
                     default:
                         Console.WriteLine("OPÇÃO INVÁLIDA");
                         break;
